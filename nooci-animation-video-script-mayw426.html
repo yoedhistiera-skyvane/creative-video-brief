@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOOCI Relax + Sleep: Animation Script Directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#241c14;          /* deep warm brown-black */
+    --paper:#f4ede2;        /* warm cream */
+    --paper2:#efe6d7;
+    --line:#d8cab2;
+    --amber:#c47a2c;        /* product insert */
+    --amber-bg:#f6e4c8;
+    --sage:#7a8b6a;         /* climax */
+    --sage-bg:#e4ead9;
+    --plum:#4a3b52;         /* hero accent */
+    --plum-bg:#e7ddec;
+    --muted:#7c6f5e;
+    --night:#1c2030;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Newsreader',Georgia,serif;
+    font-size:16px;line-height:1.5;
+    background-image:radial-gradient(circle at 12% 8%, rgba(196,122,44,.07), transparent 36%),
+                     radial-gradient(circle at 88% 92%, rgba(74,59,82,.06), transparent 40%);
+    background-attachment:fixed;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+  /* ---- Masthead ---- */
+  header.top{padding:64px 0 30px;border-bottom:2px solid var(--ink);position:relative}
+  .kicker{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(40px,7vw,80px);line-height:.96;letter-spacing:-.02em}
+  h1 em{font-style:italic;color:var(--plum)}
+  .sub{margin-top:20px;font-size:19px;max-width:60ch;color:var(--muted);font-style:italic}
+  .facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+  .fact{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;background:var(--paper2);border:1px solid var(--line);padding:6px 11px;border-radius:2px;color:var(--ink)}
+
+  /* ---- Legend ---- */
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:34px 0 8px}
+  .leg{border:1px solid var(--line);background:rgba(255,255,255,.4);padding:14px 16px;border-radius:3px}
+  .leg h4{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .leg p{font-size:14px;color:var(--muted)}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block;flex:none}
+  .dot.a{background:var(--amber)} .dot.c{background:var(--sage)} .dot.h{background:var(--plum)}
+
+  /* ---- Nav ---- */
+  nav.scripts{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--line);padding:12px 0;margin-top:30px;backdrop-filter:blur(6px)}
+  .navrow{display:flex;gap:8px;flex-wrap:wrap}
+  .navbtn{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em;background:transparent;border:1px solid var(--line);color:var(--muted);padding:9px 14px;border-radius:2px;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:8px;text-align:left}
+  .navbtn .n{font-weight:500;color:var(--amber)}
+  .navbtn:hover{border-color:var(--amber);color:var(--ink)}
+  .navbtn.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navbtn.active .n{color:#e8b87a}
+
+  /* ---- Script section ---- */
+  .script{padding:42px 0 60px}
+  .script-head{display:flex;align-items:center;gap:20px;margin-bottom:30px}
+  .snum{font-family:'Fraunces',serif;font-size:60px;font-weight:600;line-height:1;color:var(--paper);background:var(--ink);width:84px;height:84px;display:flex;align-items:center;justify-content:center;border-radius:4px;flex:none}
+  .script-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:34px;letter-spacing:-.01em;line-height:1.05}
+  .script-head .meta{font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.7;color:var(--muted);margin-top:6px;letter-spacing:.01em}
+
+  /* ---- Cards ---- */
+  .cards{display:flex;flex-direction:column;gap:14px}
+  .card{border:1px solid var(--line);background:rgba(255,255,255,.55);border-radius:4px;overflow:hidden;transition:box-shadow .2s}
+  .card:hover{box-shadow:0 6px 26px rgba(36,28,20,.09)}
+  .card-head{display:flex;align-items:center;gap:14px;padding:13px 20px;background:var(--paper2);border-bottom:1px solid var(--line)}
+  .tc{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;color:var(--amber);letter-spacing:.02em}
+  .scene{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .badge{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:2px;font-weight:500}
+  .badge-climax{background:var(--sage-bg);color:#3f4d31;border:1px solid var(--sage)}
+  .badge-hero{background:var(--plum-bg);color:var(--plum);border:1px solid var(--plum)}
+
+  .vo{padding:20px 24px 16px;font-family:'Fraunces',serif;font-size:23px;line-height:1.35;font-weight:400;letter-spacing:-.01em}
+  .vo-lbl{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;font-weight:500}
+  .vo .quote{color:var(--amber);font-size:26px;vertical-align:-2px}
+  .leg.ing{grid-column:1/-1}
+  .leg.ing p{color:var(--ink);font-size:15px;line-height:1.6}
+  .ing-note{color:var(--muted);font-style:italic;font-size:13.5px}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:0 0;border-top:1px solid var(--line)}
+  .field{padding:13px 24px;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+  .field:nth-child(odd){border-right:1px solid var(--line)}
+  .field .lbl{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:4px}
+  .field .val{font-size:15px;color:var(--ink);line-height:1.45}
+  .field.insert{background:var(--amber-bg)}
+  .field.insert .lbl{color:#9a5a14}
+
+  .card.climax{border-color:var(--sage);border-width:2px}
+  .card.climax .card-head{background:var(--sage-bg)}
+  .card.climax .tc{color:#4f6140}
+  .card.hero{border-color:var(--plum)}
+  .card.hero .card-head{background:var(--plum-bg)}
+
+  /* ---- Footer ---- */
+  footer{border-top:2px solid var(--ink);margin-top:30px;padding:40px 0 80px}
+  .disc{background:var(--night);color:#cdd2e0;padding:22px 26px;border-radius:4px;font-size:13.5px;line-height:1.6;font-family:'IBM Plex Mono',monospace;letter-spacing:.01em}
+  .disc strong{color:#fff}
+  .verify{margin-top:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .vcard{border:1px dashed var(--amber);background:var(--amber-bg);padding:15px 17px;border-radius:3px}
+  .vcard h5{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9a5a14;margin-bottom:7px}
+  .vcard p{font-size:14px;color:var(--ink)}
+  .foot-note{margin-top:26px;font-style:italic;color:var(--muted);font-size:14px}
+
+  @media(max-width:680px){
+    .grid{grid-template-columns:1fr}
+    .field{border-right:none}
+    .snum{width:64px;height:64px;font-size:44px}
+    .vo{font-size:20px}
+    h1{font-size:44px}
+  }
+  @media print{
+    nav.scripts{position:static}
+    .script{display:block !important;page-break-before:always}
+    .card{break-inside:avoid}
+    body{background:#fff}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="kicker">NOOCI · Relax + Sleep · Creative Production Brief</div>
+    <h1>Relax + Sleep<em>: Animation Script Directions</em></h1>
+    <p class="sub">Five 120-second vertical (9:16) concepts for AI-generated video. Each card is one scene. The line marked VO / SUBTITLE is both spoken aloud and shown on screen, so it reads clearly with sound off.</p>
+
+    <div class="legend">
+      <div class="leg"><h4>Scene codes</h4><p>Scenes run 1&ndash;17 per script. &ldquo;Scene 17&rdquo; = the final scene.</p></div>
+      <div class="leg"><h4><span class="dot a"></span>Product Insert</h4><p>Amber field = real product footage composited into the AI scene here.</p></div>
+      <div class="leg"><h4><span class="dot c"></span>Climax</h4><p>Green card = the transformation scene. Give it the most generation time.</p></div>
+      <div class="leg"><h4><span class="dot h"></span>Product Hero</h4><p>Plum card = the hero shot. FDA disclaimer must appear here.</p></div>
+      <div class="leg"><h4>Asterisk *</h4><p>Any claim marked * carries the FDA structure/function disclaimer on the end card.</p></div>
+      <div class="leg ing"><h4>NOOCI Relax + Sleep Ingredients</h4><p>Red Date (Jujube), Poria Mushroom, Bupleurum Root, GABA, Cinnamon Twig, Licorice Root, Fú Xiǎo Mài.<br><span class="ing-note">Headline trio featured in the scripts: Red Date, Poria Mushroom, GABA.</span></p></div>
+    </div>
+  </header>
+
+  <nav class="scripts">
+    <div class="navrow"><button class="navbtn active" data-target="script-shen"><span class="n">1</span>Shen</button>
+<button class="navbtn" data-target="script-overthinker"><span class="n">2</span>The Overthinker&#x27;s Brain</button>
+<button class="navbtn" data-target="script-grandmother"><span class="n">3</span>The Grandmother&#x27;s Tea</button>
+<button class="navbtn" data-target="script-ceiling"><span class="n">4</span>The 3 AM Ceiling</button>
+<button class="navbtn" data-target="script-origins"><span class="n">5</span>The Ingredient Origins</button></div>
+  </nav>
+
+  <section class="script" id="script-shen" style="display:block">
+      <div class="script-head">
+        <div class="snum">1</div>
+        <div>
+          <h2>Shen</h2>
+          <p class="meta">Wellness-curious 28–45 · TCM / spiritual education · Character: Shen, an ethereal wisp · World: Bedroom-cosmos</p>
+        </div>
+      </div>
+      <div class="cards"><article class="card">
+      <header class="card-head">
+        <span class="tc">0:00–0:03</span>
+        <span class="scene">Scene 1</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Why do you wake at 3:17 AM?<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Tight on the wisp on a dark pillow: anxious pale cyan, twitching, red-orange sparks shooting through it.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Clock tick; anxious electrical hum</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Same wisp across all scenes. Eyes are faint glowing dot-points. Stressed state = cyan + erratic flicker.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:03–0:08</span>
+        <span class="scene">Scene 2</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Meet your Shen, the spirit that has to settle before sleep finds you.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Pull back: floating bed on a cloud-island in a vast starry cosmos. Wisp darts after drifting calligraphy-worries.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Ethereal pad; drifting wind</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Calligraphy-ghosts = smoke-like strokes, abstract, not literal text.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:08–0:12</span>
+        <span class="scene">Scene 3</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>It&#x27;s not melatonin&#x27;s fault.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Wisp tries to lie down; a worry drifts past; it jerks awake, flaring red-orange.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Sharp electrical flicker</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Keep motion subtle, wisps look bad with jerky AI motion.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:12–0:15</span>
+        <span class="scene">Scene 4</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>There&#x27;s an older answer.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Quick 1.5s glimpse then snap back to the anxious wisp.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Warm chime</span></div>
+        <div class="field insert"><span class="lbl">Product Insert</span><span class="val">Sachet tears open, amber light pours out</span></div>
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Match insert lighting to scene: warm amber, soft falloff.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:15–0:21</span>
+        <span class="scene">Scene 5</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Melatonin overrides. Sedatives shut you down. Neither settles the mind.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Shelf of fixes appears. Wisp touches each: melatonin (forced grey-green dim), wine (stagger), phone (flicker), pill (heavy drop). Fast cuts ~1.5s each.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Four discordant tones, one per object</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Objects lit like cold museum artifacts, clashing with warm realm.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:21–0:25</span>
+        <span class="scene">Scene 6</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>The problem isn&#x27;t a shortage. It&#x27;s an unsettled spirit.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Wisp exhausted on pillow; a warm golden light begins to grow in the distance.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Music shifts warmer; soft swell begins</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Transition beat, palette starts warming.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:25–0:32</span>
+        <span class="scene">Scene 7</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>For 2,000 years, Traditional Chinese Medicine has known how to settle Shen.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Golden light expands; celestial ingredients orbit the wisp: red date as a small sun, poria as a moon, herb-stars.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Singing bowl; warm strings enter</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Ingredients painterly &amp; luminous, not photographic.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:32–0:40</span>
+        <span class="scene">Scene 8</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Red date calms the spirit and eases restlessness.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Close on the red date, pulsing softly like a heart. Wisp leans in; eye-points appear.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Soft heart-pulse</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Wording mirrors NOOCI&#x27;s own ingredient copy.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:40–0:50</span>
+        <span class="scene">Scene 9</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Red Date, Poria Mushroom, and GABA, a soothing blend that quiets the mind.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Three featured ingredients float forward in turn, each glowing.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Three warm tones</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Only the 3 marketed Key Ingredients are named.</span></div>
+      </div>
+    </article>
+<article class="card climax">
+      <header class="card-head">
+        <span class="tc">0:50–1:05</span>
+        <span class="scene">Scene 10</span>
+        <span class="badge badge-climax">Transformation / Climax</span>
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>No knockout. Just your Shen, finally letting go.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Ingredients become golden steam from a cup. Wisp breathes it in. Over 7s: cyan → warm amber; flickers fade; tail smooths to silk; eye-points soften and close.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Long exhale; harmonic swell; slowing heartbeat</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">CLIMAX. Generate 20+ takes. Hold the full 15s.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:05–1:13</span>
+        <span class="scene">Scene 11</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>NOOCI Relax + Sleep. One sachet, warm water, every night.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Real footage: sachet poured into a warm mug, steam, slow stir.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Pour; stir</span></div>
+        <div class="field insert"><span class="lbl">Product Insert</span><span class="val">Sachet → mug pour, steam</span></div>
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Use NOOCI&#x27;s existing product video; grade warm.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:13–1:22</span>
+        <span class="scene">Scene 12</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Taken each night, it gently eases you toward deeper rest.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Time-lapse; wisp on pillow as moon arcs across the sky; calm amber pulse.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Slow breathing pulse</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Reworded from &#x27;work cumulatively&#x27; for a calmer subtitle.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:22–1:30</span>
+        <span class="scene">Scene 13</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Wake clear. Never groggy.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Sunrise; wisp opens eye-points, clear and bright; stretches.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Distant birdsong; warm sunrise tone</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Calm state = warm amber, ordered, slow pulse.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:30–1:35</span>
+        <span class="scene">Scene 14</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Melatonin-free. Non-habit forming. Third-party tested.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Quick layered shots: sachet, ingredients, then &#x27;Featured in Forbes &amp; Bloomberg&#x27; as soft text.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">Featured in Forbes &amp; Bloomberg</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Three soft chimes</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">All three claims verified on site.</span></div>
+      </div>
+    </article>
+<article class="card hero">
+      <header class="card-head">
+        <span class="tc">1:35–1:46</span>
+        <span class="scene">Scene 15</span>
+        <span class="badge badge-hero">Product Hero</span>
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>20 sachets. $36 a box. 30-day satisfaction guarantee.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Clean hero shot: NOOCI box + sachet, warm light, single steam curl.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">mynooci.com  +  FDA disclaimer (small)</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Warm sustained chord</span></div>
+        <div class="field insert"><span class="lbl">Product Insert</span><span class="val">Box + sachet hero</span></div>
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Disclaimer must be legible. $36 / $45 verified.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:46–1:55</span>
+        <span class="scene">Scene 16</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>What does your Shen need tonight?<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Wisp floats above pillow in golden light; turns to camera; eye-points open.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Quiet held tone</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Open question, drives rewatch/comments.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:55–2:00</span>
+        <span class="scene">Scene 17</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>NOOCI. Sleep that finds you.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Wisp dims, drifts up, floats out of frame like sleep arriving. Logo fades in.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">mynooci.com</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Final chime; fade</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">End card; logo + URL.</span></div>
+      </div>
+    </article></div>
+    </section>
+<section class="script" id="script-overthinker" style="display:none">
+      <div class="script-head">
+        <div class="snum">2</div>
+        <div>
+          <h2>The Overthinker&#x27;s Brain</h2>
+          <p class="meta">Stressed 25–38 knowledge workers · Relatability / racing mind · Character: Frazzled creature in a control room · World: Inside a head as mission-control</p>
+        </div>
+      </div>
+      <div class="cards"><article class="card">
+      <header class="card-head">
+        <span class="tc">0:00–0:03</span>
+        <span class="scene">Scene 1</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>You closed your eyes 47 minutes ago.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Small creature panics among glowing worry-screens (email, calendar, bill, &#x27;we need to talk&#x27;).</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Frantic typing; screen beeps</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Design creature to NOT resemble any existing IP character.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:03–0:08</span>
+        <span class="scene">Scene 2</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>This is your brain at 11:47 PM.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Pull back: hundreds of screens in a skull-shaped control room; creature alone, overwhelmed.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Overlapping notifications; distant heartbeat</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Control room is the visual hero, detailed but stylized.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:08–0:12</span>
+        <span class="scene">Scene 3</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>You can&#x27;t close the tabs.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Creature shuts screens; new ones pop instantly; sticky notes flood in from above.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Endless pops</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">One screen can literally read a worry e.g. &#x27;tomorrow&#x27;s deadline&#x27;.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:12–0:15</span>
+        <span class="scene">Scene 4</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Until something shifts.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Through one screen, a glimpse; creature pauses, watching.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Beeping fades to a single warm tone</span></div>
+        <div class="field insert"><span class="lbl">Product Insert</span><span class="val">Sachet pouring into water, steam</span></div>
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">First brand glimpse seen through a screen.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:15–0:22</span>
+        <span class="scene">Scene 5</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Melatonin overrides your body. It never teaches your body how to rest.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Melatonin bottle slams down, floods room with harsh blue; screens go dark, then snap back brighter.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Harsh hum; snap-back to chaos</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Fixed pronoun ambiguity. Mirrors NOOCI &#x27;most solutions make it worse&#x27; copy.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:22–0:28</span>
+        <span class="scene">Scene 6</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Sleep isn&#x27;t about forcing the lights off.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Creature collapses in chair; one screen reads &#x27;your body knows how to sleep.&#x27;</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Single piano note</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Music softens here.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:28–0:36</span>
+        <span class="scene">Scene 7</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>It&#x27;s about quieting the room.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Warm amber glow from a ceramic mug that appears on a side table.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Warm chord; slow breath</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Mug is the warm anchor in a cold room.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:36–0:45</span>
+        <span class="scene">Scene 8</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Three calming ingredients. 2,000 years of TCM. One quiet ritual.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Close on mug; steam forms three glowing icons: red date, poria, GABA.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Three chimes</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">&#x27;Three&#x27; = featured ingredients only.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:45–0:55</span>
+        <span class="scene">Scene 9</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Red Date settles you. Poria Mushroom grounds you. GABA quiets the noise.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Creature lifts the mug with both hands; tentative sip.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Sip; warm exhale</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Completed the clipped verbs for clarity.</span></div>
+      </div>
+    </article>
+<article class="card climax">
+      <header class="card-head">
+        <span class="tc">0:55–1:10</span>
+        <span class="scene">Scene 10</span>
+        <span class="badge badge-climax">Transformation / Climax</span>
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>One by one, the tabs close.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Screen by screen the room dims; tabs close; sticky notes drift down; blue → amber; creature sits, still, shoulders drop.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Power-down tones building into peaceful silence</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">CLIMAX. Build like a reverse Rube Goldberg. Most generation time.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:10–1:18</span>
+        <span class="scene">Scene 11</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>NOOCI Relax + Sleep. Not a knockout, a wind-down.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Real footage: sachet, mug, steam, amber-matched.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Gentle pour; warm sustain</span></div>
+        <div class="field insert"><span class="lbl">Product Insert</span><span class="val">Sachet + mug + steam</span></div>
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Grade to match control-room amber.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:18–1:28</span>
+        <span class="scene">Scene 12</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Taken nightly, the noise quiets over time.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Room nearly dark; one screen shows the creature sleeping; time-lapse moon.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Slow breath pulse</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Hedged claim, matches site.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:28–1:36</span>
+        <span class="scene">Scene 13</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>You wake with room to think.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Morning; lights return softer, fewer screens, more space; creature wakes, opens a sunrise screen.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Soft morning ambience</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Payoff of the &#x27;space&#x27; metaphor.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:36–1:42</span>
+        <span class="scene">Scene 14</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Melatonin-free. Non-habit forming. Made in the U.S.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Quick shots: mug, sachet, ingredient icons across the now-clean room.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Three warm chimes</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">All verified on site.</span></div>
+      </div>
+    </article>
+<article class="card hero">
+      <header class="card-head">
+        <span class="tc">1:42–1:50</span>
+        <span class="scene">Scene 15</span>
+        <span class="badge badge-hero">Product Hero</span>
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>20 sachets. $36 a box. 30-day satisfaction guarantee.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Hero shot: box + sachet beside a closed laptop, lamp light.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">mynooci.com  +  FDA disclaimer (small)</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Warm chord</span></div>
+        <div class="field insert"><span class="lbl">Product Insert</span><span class="val">Box + sachet hero</span></div>
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Disclaimer legible.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:50–1:56</span>
+        <span class="scene">Scene 16</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>How many tabs are open right now?<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Creature calm, mug in hands, looks to camera.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Quiet held tone</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Open question, engagement driver.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:56–2:00</span>
+        <span class="scene">Scene 17</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>NOOCI. Close the tabs. Find sleep.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Creature smiles, blows steam; last screen fades. Logo fades in.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">mynooci.com</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Final chime; fade</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">End card.</span></div>
+      </div>
+    </article></div>
+    </section>
+<section class="script" id="script-grandmother" style="display:none">
+      <div class="script-head">
+        <div class="snum">3</div>
+        <div>
+          <h2>The Grandmother&#x27;s Tea</h2>
+          <p class="meta">Diaspora 28–50 + ancestral-wisdom wellness · Heritage (founder Stephanie Tan&#x27;s grandmother lineage) · Characters: Grandmother + granddaughter · World: Traditional kitchen ↔ modern bedroom</p>
+        </div>
+      </div>
+      <div class="cards"><article class="card">
+      <header class="card-head">
+        <span class="tc">0:00–0:03</span>
+        <span class="scene">Scene 1</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>My grandmother had a tea for everything.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Close: weathered, gentle hands pour steaming amber liquid into a ceramic cup; warm kitchen light.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Gentle pour; kettle; room tone</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Two consistent characters, lock both first.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:03–0:08</span>
+        <span class="scene">Scene 2</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>When I couldn&#x27;t sleep, she&#x27;d say, drink this. Slowly.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Pixar grandmother in a softly-lit kitchen, herbs hanging; offers the cup to a young girl off-camera.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Warm strings enter</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Grandmother = warm &amp; personal, NOT ethnic costume.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:08–0:13</span>
+        <span class="scene">Scene 3</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>I never asked what was in it. I just slept.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Girl sips; shoulders drop; eyes heavy; kitchen glows golden.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Sip; slowing heartbeat</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Childhood warmth, soft focus.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:13–0:18</span>
+        <span class="scene">Scene 4</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Twenty years later. Same problem. No grandmother.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Kitchen fades to a modern bedroom; grown granddaughter sits on the bed at night, phone glowing, tired.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Cooler ambience; faint phone hum</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Same face as the girl, grown up.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:18–0:25</span>
+        <span class="scene">Scene 5</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>I tried everything modern. Nothing felt like hers.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Bedside table in cold blue light: melatonin bottle, empty wine glass, sleep gummies.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Cold electronic tones, then silence</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Cold palette contrast.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:25–0:32</span>
+        <span class="scene">Scene 6</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Then I remembered what she actually used.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">She opens a drawer; pulls out a framed photo of her grandmother in the kitchen.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Single piano note; warming</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Emotional pivot.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:32–0:40</span>
+        <span class="scene">Scene 7</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Red Date. Poria Mushroom. The same herbs, now studied, now standardized.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Warm amber glow rises; three celestial ingredients drift in: red date, poria, GABA.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Strings swell</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Hedged, supportable claim.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:40–0:50</span>
+        <span class="scene">Scene 8</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>NOOCI, built by a granddaughter, from 2,000 years of TCM. For everyone who wishes they still had theirs.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Real footage: NOOCI sachet appears where the melatonin was; she picks it up, examines it.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Soft chime; warm tone</span></div>
+        <div class="field insert"><span class="lbl">Product Insert</span><span class="val">Sachet reveal on bedside table</span></div>
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Rewrote tangled line; &#x27;theirs&#x27; now clearly = their grandmother.</span></div>
+      </div>
+    </article>
+<article class="card climax">
+      <header class="card-head">
+        <span class="tc">0:50–1:05</span>
+        <span class="scene">Scene 9</span>
+        <span class="badge badge-climax">Transformation / Climax</span>
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>The same steam. The same warmth. The same wisdom.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">She pours hot water, empties sachet, stirs. As steam rises, modern + grandmother&#x27;s kitchens briefly overlap; steam becomes the clay-pot&#x27;s steam. She closes her eyes.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Long exhale; layered ambience; harmonic swell</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">CLIMAX. Use steam as the bridge, subtle morph, NOT a hard cut.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:05–1:13</span>
+        <span class="scene">Scene 10</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>My body remembered before I did.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">She brings the mug to bed, sips; shoulders drop like in childhood.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Sip; gentle music</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Mirror the Scene-3 shoulder-drop.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:13–1:22</span>
+        <span class="scene">Scene 11</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>NOOCI Relax + Sleep. The wisdom that raised us, in a sachet.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Real footage: sachet, mug, steam, amber-graded; brief cross-cut to grandmother&#x27;s hands.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Warm pad</span></div>
+        <div class="field insert"><span class="lbl">Product Insert</span><span class="val">Sachet + mug + steam</span></div>
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Cross-cut to clay pot for continuity.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:22–1:30</span>
+        <span class="scene">Scene 12</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Taken before bed, night by night, rest comes home.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Time-lapse: she sleeps, moonlight to dawn; empty mug, wrapper, framed photo beside her.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Slow breathing pulse</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Fixed dangling modifier.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:30–1:37</span>
+        <span class="scene">Scene 13</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Wake clear. Never groggy.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Morning; she wakes clear, looks at the photo, smiles.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Morning birds</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Standardized to &#x27;groggy&#x27; for brand consistency.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:37–1:44</span>
+        <span class="scene">Scene 14</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Melatonin-free. Non-habit forming. Third-party tested.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Quick shots: sachet, ingredients, Stephanie Tan&#x27;s name/signature on the box.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">[VERIFY ON LABEL: signature]</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Three chimes</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Confirm signature exists on packaging.</span></div>
+      </div>
+    </article>
+<article class="card hero">
+      <header class="card-head">
+        <span class="tc">1:44–1:52</span>
+        <span class="scene">Scene 15</span>
+        <span class="badge badge-hero">Product Hero</span>
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>20 sachets. $36 a box. 30-day satisfaction guarantee.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Hero shot: box + sachet beside the framed photo, morning light.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">mynooci.com  +  FDA disclaimer (small)</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Warm chord</span></div>
+        <div class="field insert"><span class="lbl">Product Insert</span><span class="val">Box + sachet hero</span></div>
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Disclaimer legible.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:52–1:57</span>
+        <span class="scene">Scene 16</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>What did your grandmother know?<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">She faces camera holding the mug; window glows warm behind her.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Held tone</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Open question.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:57–2:00</span>
+        <span class="scene">Scene 17</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>NOOCI. The wisdom that raised us.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">One more sip, a smile. Logo fades in.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">mynooci.com</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Final warm chime; fade</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">End card.</span></div>
+      </div>
+    </article></div>
+    </section>
+<section class="script" id="script-ceiling" style="display:none">
+      <div class="script-head">
+        <div class="snum">4</div>
+        <div>
+          <h2>The 3 AM Ceiling</h2>
+          <p class="meta">Sleep-deprived 30–50 skeptics · Hyper-real emotional truth · Character: Pixar-style woman (test male variant) · World: Moody real bedroom</p>
+        </div>
+      </div>
+      <div class="cards"><article class="card">
+      <header class="card-head">
+        <span class="tc">0:00–0:03</span>
+        <span class="scene">Scene 1</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>3:14 AM. You&#x27;re awake. Again.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Extreme close-up: tired eyes staring up; ceiling fan slowly turning.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Fan whir; clock tick; low room tone</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">HARDEST consistency challenge, one realistic human across 17 scenes. Consider real-actress footage + AI style-transfer as fallback.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:03–0:08</span>
+        <span class="scene">Scene 2</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Your body is exhausted. Your mind won&#x27;t stop.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Pull back: woman ~38 in bed, phone face-down, water glass; still.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Piano note; faint heartbeat</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Lock the face with a reference sheet / LoRA.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:08–0:13</span>
+        <span class="scene">Scene 3</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>You&#x27;ve tried everything.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Her hands fidget the blanket; camera drifts to nightstand: melatonin (cap loose), empty mug, half-read book.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Anxious pulse</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Realistic but stylized, Pixar &#x27;Soul&#x27; everyday-reality look.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:13–0:18</span>
+        <span class="scene">Scene 4</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Something different exists.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Sachet on a warm-lit counter, steam beside it; snap back to dark bedroom.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Warm tone briefly, then silence</span></div>
+        <div class="field insert"><span class="lbl">Product Insert</span><span class="val">Sachet on counter, steam</span></div>
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Warm insert vs cold bedroom.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:18–0:25</span>
+        <span class="scene">Scene 5</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Melatonin. Pills. Magnesium. The app. None settled the noise.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">She sits up, opens drawer: gummies, pills, magnesium spray, CBD oil, sleep-tracker watch.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Cold layered tones</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Each item adds a cold tone layer.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:25–0:32</span>
+        <span class="scene">Scene 6</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>50% of adults have this problem. Most fixes make it worse.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">She closes the drawer; looks at the ceiling; fan keeps turning.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Quiet exhale; silence</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">&#x27;50% of adults&#x27; stat is on NOOCI&#x27;s site.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:32–0:40</span>
+        <span class="scene">Scene 7</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Traditional Chinese Medicine had an answer first.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">She walks to the kitchen; opens a cabinet; NOOCI box catches warm light.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Low cello note</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Warm light find, hope beat.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:40–0:50</span>
+        <span class="scene">Scene 8</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Red Date, Poria Mushroom, and GABA. No melatonin.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">She tears the sachet, pours, stirs; steam rises amber. Close on her tired-but-curious face.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Pour; stir; steam</span></div>
+        <div class="field insert"><span class="lbl">Product Insert</span><span class="val">(optional) real pour insert</span></div>
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Featured 3 ingredients.</span></div>
+      </div>
+    </article>
+<article class="card climax">
+      <header class="card-head">
+        <span class="tc">0:50–1:05</span>
+        <span class="scene">Scene 9</span>
+        <span class="badge badge-climax">Transformation / Climax</span>
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>No knockout. No override. Just your body, finally letting go.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Back in bed, slow sips. The room doesn&#x27;t change, SHE does: shoulders drop, jaw unclenches, eyes grow heavy. Hold on her face.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Long exhale; warm swell; slowing heartbeat</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">CLIMAX. Acted on the FACE across beats: tense→curious→softening→heavy. Hardest AI shot.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:05–1:13</span>
+        <span class="scene">Scene 10</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>The noise quiets. Sleep finds you.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Empty mug down; she lies back; eyes close; fan rhythm now matches her breathing.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Slow pulse; breathing</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Fan = visual metronome for calm.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:13–1:22</span>
+        <span class="scene">Scene 11</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>NOOCI Relax + Sleep. One sachet, warm water, every night.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Real footage: sachet, mug, steam, warm-matched.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Warm tone; pour</span></div>
+        <div class="field insert"><span class="lbl">Product Insert</span><span class="val">Sachet + mug + steam</span></div>
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Grade to kitchen warmth.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:22–1:30</span>
+        <span class="scene">Scene 12</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Taken nightly, the herbs ease you toward deeper rest over time.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Time-lapse: she sleeps; moon crosses the window; face peaceful.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Slow breathing pulse</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Hedged claim.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:30–1:37</span>
+        <span class="scene">Scene 13</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Wake clear. Never groggy.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Morning sun fills the room; she wakes before the alarm, sits up, smiles, reaches for the mug.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Birdsong; morning tone</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Standardized to &#x27;groggy&#x27;.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:37–1:43</span>
+        <span class="scene">Scene 14</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Melatonin-free. Non-habit forming. Made in the U.S.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Quick shots: sachet, ingredients, box, &#x27;Featured in Forbes &amp; Bloomberg&#x27; text.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">Featured in Forbes &amp; Bloomberg</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Three chimes</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">All verified.</span></div>
+      </div>
+    </article>
+<article class="card hero">
+      <header class="card-head">
+        <span class="tc">1:43–1:52</span>
+        <span class="scene">Scene 15</span>
+        <span class="badge badge-hero">Product Hero</span>
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>20 sachets. $36 a box. 30-day satisfaction guarantee.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Hero shot: box + sachet on nightstand, morning light, steam curl.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">mynooci.com  +  FDA disclaimer (small)</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Warm chord</span></div>
+        <div class="field insert"><span class="lbl">Product Insert</span><span class="val">Box + sachet hero</span></div>
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Disclaimer legible.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:52–1:57</span>
+        <span class="scene">Scene 16</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>What would clear mornings change?<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">She stands at the window with morning coffee, calm.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Held tone</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Open question.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:57–2:00</span>
+        <span class="scene">Scene 17</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>NOOCI. Sleep that finds you.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Half-smile to camera. Logo fades in.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">mynooci.com</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Final chime; fade</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">End card.</span></div>
+      </div>
+    </article></div>
+    </section>
+<section class="script" id="script-origins" style="display:none">
+      <div class="script-head">
+        <div class="snum">5</div>
+        <div>
+          <h2>The Ingredient Origins</h2>
+          <p class="meta">Ingredient-curious label-readers · The 3 featured ingredients as characters · Zǎo (Red Date), Fú Líng (Poria), GABA + human · World: Celestial herb-garden ↔ bedroom</p>
+        </div>
+      </div>
+      <div class="cards"><article class="card">
+      <header class="card-head">
+        <span class="tc">0:00–0:03</span>
+        <span class="scene">Scene 1</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Three ingredients that actually settle your mind.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Three glowing silhouettes appear in a starry sky, one by one.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Three rising chimes</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Standardized to &#x27;your mind&#x27;. Each character must also work as a 30s cutdown.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:03–0:08</span>
+        <span class="scene">Scene 2</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>A soothing blend, rooted in 2,000 years of TCM.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Pull back: celestial herb garden; plants as constellations. Below, through a veil, a sleepless woman in bed.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Warm strings; wind</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">&#x27;Three&#x27; = the 3 marketed Key Ingredients (matches site).</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:08–0:15</span>
+        <span class="scene">Scene 3</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Zǎo, Red Date. Calms the spirit and eases restlessness.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Zǎo, ember-orange sun-creature with grandmotherly eyes, releases glowing seeds.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Low cello; heart-pulse</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Design distinct &amp; consistent; reference sheet first.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:15–0:22</span>
+        <span class="scene">Scene 4</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Used for centuries in TCM to nourish the blood and quiet the mind.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Inside a stylized chest: an anxious &#x27;Shen&#x27; flicker; Zǎo&#x27;s seeds steady it.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Heartbeat slowing</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Hedged traditional-use claim.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:22–0:29</span>
+        <span class="scene">Scene 5</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Fú Líng, Poria Mushroom. Grounds the body and deepens rest.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Fú Líng, calm moon-shaped guardian, floats over still water; releases a ripple of cool light.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Singing bowl; ripple</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Poria = Fu Ling 茯苓 / Wolfiporia extensa.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:29–0:36</span>
+        <span class="scene">Scene 6</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Traditionally used to calm the Shen and settle nighttime restlessness.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Inside the body: choppy sleep-waves flatten into long slow swells.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Ocean swell</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Hedged traditional-use claim.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:36–0:43</span>
+        <span class="scene">Scene 7</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>GABA, your brain&#x27;s own calm-down signal.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">GABA, cyan crystalline being, touches the air; &#x27;noise lines&#x27; snap to stillness.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Crystalline chime</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Wording matches NOOCI&#x27;s GABA copy.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:43–0:50</span>
+        <span class="scene">Scene 8</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>It quiets overactive neural pathways without forcing sedation.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Inside the brain: overactive pathways flicker red; GABA dims them to steady amber.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Hum to silence</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">NOOCI&#x27;s exact phrasing.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">0:50–0:58</span>
+        <span class="scene">Scene 9</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Together, a 2,500 mg blend that reminds your body how to sleep.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">The three meet at the garden&#x27;s center; lights merge into one warm sphere.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">* / [VERIFY ON LABEL: 2,500mg incl. GABA?]</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Three tones harmonize</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Fixed subject-verb agreement. Confirm whether 2,500mg includes GABA.</span></div>
+      </div>
+    </article>
+<article class="card climax">
+      <header class="card-head">
+        <span class="tc">0:58–1:10</span>
+        <span class="scene">Scene 10</span>
+        <span class="badge badge-climax">Transformation / Climax</span>
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>NOOCI Relax + Sleep. Three ingredients, one nightly ritual.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">The sphere descends through the veil into the woman&#x27;s mug. Real sachet pour with glow composited into steam. She drinks; eyes soften; lies back.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Warm exhale; swell; slow heartbeat</span></div>
+        <div class="field insert"><span class="lbl">Product Insert</span><span class="val">Sachet pour, glow composited into steam</span></div>
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">CLIMAX + product moment. Composite real footage + AI glow.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:10–1:18</span>
+        <span class="scene">Scene 11</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>No melatonin. No knockout. Just your body, remembering.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">She sleeps; the three characters drift gently above the bed.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Slow breathing pulse</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Characters as guardians.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:18–1:27</span>
+        <span class="scene">Scene 12</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Taken each night, the herbs gently build toward deeper rest.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Time-lapse; characters dim back into the night sky as constellations.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Slow pulse</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Reworded from &#x27;work cumulatively&#x27; for a calmer subtitle.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:27–1:35</span>
+        <span class="scene">Scene 13</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Wake clear. Never groggy.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Morning; she wakes clear, stretches; empty mug and wrapper on the nightstand.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">*</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Birdsong</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Standardized to &#x27;groggy&#x27;.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:35–1:43</span>
+        <span class="scene">Scene 14</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Red Date, Poria Mushroom, GABA. No filler.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Zǎo, Fú Líng, GABA appear once more as icons over the sachet; box visible.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">[VERIFY ON LABEL: &#x27;no filler&#x27;]</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Three chimes to one tone</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Confirm &#x27;no filler&#x27; against the panel.</span></div>
+      </div>
+    </article>
+<article class="card hero">
+      <header class="card-head">
+        <span class="tc">1:43–1:52</span>
+        <span class="scene">Scene 15</span>
+        <span class="badge badge-hero">Product Hero</span>
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>20 sachets. $36 a box. 30-day satisfaction guarantee.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Hero shot: box + sachet, steam curl, three soft glows above the mug.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">mynooci.com  +  FDA disclaimer (small)</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Warm chord</span></div>
+        <div class="field insert"><span class="lbl">Product Insert</span><span class="val">Box + sachet hero</span></div>
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Disclaimer legible.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:52–1:57</span>
+        <span class="scene">Scene 16</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>Now you know what&#x27;s in the cup.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Woman with morning coffee at the window; the three fade into the sky behind her.</span></div>
+        
+        <div class="field"><span class="lbl">SFX</span><span class="val">Held tone</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">Open-ish close.</span></div>
+      </div>
+    </article>
+<article class="card">
+      <header class="card-head">
+        <span class="tc">1:57–2:00</span>
+        <span class="scene">Scene 17</span>
+        
+      </header>
+      <div class="vo"><span class="vo-lbl">VO / SUBTITLE</span><span class="quote">&ldquo;</span>NOOCI. Three ingredients. 2,000 years. One good night.<span class="quote">&rdquo;</span></div>
+      <div class="grid">
+        <div class="field"><span class="lbl">Visual</span><span class="val">Pull back to sky; three faint constellations. Logo fades in.</span></div>
+        <div class="field"><span class="lbl">On-Screen Text</span><span class="val">mynooci.com</span></div>
+        <div class="field"><span class="lbl">SFX</span><span class="val">Final chime; fade</span></div>
+        
+        <div class="field"><span class="lbl">AI / Notes</span><span class="val">End card.</span></div>
+      </div>
+    </article></div>
+    </section>
+
+  <footer>
+    <div class="disc"><strong>Disclaimer (required on every product-hero end card):</strong><br>*These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease. Replace with the BPOM equivalent for distribution in Indonesia.</div>
+    <div class="verify">
+      <div class="vcard"><h5>Verify on label</h5><p>Whether 2,500&nbsp;mg includes or excludes GABA.</p></div>
+      <div class="vcard"><h5>Verify on label</h5><p>The &ldquo;no filler&rdquo; wording (Script 5).</p></div>
+      <div class="vcard"><h5>Verify on label</h5><p>Stephanie Tan signature on packaging (Script 3).</p></div>
+      <div class="vcard"><h5>Open item</h5><p>Authorization to run NOOCI-branded content.</p></div>
+      <div class="vcard"><h5>Open item</h5><p>Rights to repeat Forbes / Bloomberg mentions in <em>paid</em> video.</p></div>
+    </div>
+    <p class="foot-note">Claims verified against mynooci.com on 28 May 2026. The website is marketing copy; the physical Supplement Facts panel is the final authority before lock.</p>
+  </footer>
+
+</div>
+
+<script>
+  const btns = document.querySelectorAll('.navbtn');
+  const secs = document.querySelectorAll('.script');
+  btns.forEach(b=>b.addEventListener('click',()=>{
+    btns.forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const t=b.dataset.target;
+    secs.forEach(s=>s.style.display = (s.id===t)?'block':'none');
+    window.scrollTo({top:document.querySelector('nav.scripts').offsetTop-4,behavior:'smooth'});
+  }));
+</script>
+</body>
+</html>
