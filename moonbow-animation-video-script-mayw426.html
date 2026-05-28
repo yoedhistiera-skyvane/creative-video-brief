@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moonbow Complete Calm Trio: Animation Script Directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f1ea; --ink:#2a2622; --soft:#6f655a; --line:#e2d8ca;
+    --gold:#c98a2b; --gold-soft:#f0e2c6; --red:#b8543f; --red-soft:#f3ddd4;
+    --green:#5d7a52; --green-soft:#e2ebd9; --plum:#7a5066; --plum-soft:#ecdde5;
+    --card:#fffdf9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:'Newsreader',Georgia,serif;font-size:17px;line-height:1.5;
+    background-image:radial-gradient(circle at 12% -5%, #fcf6ec 0%, transparent 40%),radial-gradient(circle at 90% 0%, #f3ece0 0%, transparent 35%);}
+  .wrap{max-width:880px;margin:0 auto;padding:0 22px 80px}
+  .kicker{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--gold);padding:26px 0 0}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(30px,6vw,52px);
+    line-height:1.04;margin:.25em 0 .15em;letter-spacing:-.01em}
+  h1 em{font-style:italic;color:var(--gold)}
+  .sub{color:var(--soft);font-size:18px;max-width:60ch;margin:0 0 6px}
+  .rule{height:1px;background:var(--line);margin:26px 0}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:8px 0 4px}
+  .legend h4{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;margin:0 0 3px;color:var(--ink)}
+  .legend p{margin:0;font-size:14.5px;color:var(--soft);line-height:1.45}
+  .swatch{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+  .sw-amber{background:var(--gold)} .sw-green{background:var(--green)} .sw-plum{background:var(--plum)}
+  .ingredients{background:var(--gold-soft);border:1px solid var(--line);border-radius:10px;
+    padding:16px 18px;font-size:15px;color:#5b4a30;margin:6px 0 0}
+  .ingredients b{color:var(--gold)}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+  .toc a{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);
+    background:var(--card);border:1px solid var(--line);border-radius:999px;
+    padding:7px 14px 7px 8px;font-size:14.5px;transition:.15s}
+  .toc a:hover{border-color:var(--gold);color:var(--gold)}
+  .tnum{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;
+    background:var(--gold);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:12px}
+  .concept{margin:54px 0 0;scroll-margin-top:18px}
+  .concept-head{display:flex;gap:16px;align-items:flex-start;padding-bottom:6px;
+    border-bottom:2px solid var(--ink)}
+  .cnum{font-family:'Fraunces',serif;font-weight:700;font-size:44px;line-height:.9;color:var(--gold-soft);
+    -webkit-text-stroke:1.4px var(--gold);text-stroke:1.4px var(--gold)}
+  .concept h2{font-family:'Fraunces',serif;font-weight:600;font-size:27px;margin:2px 0 3px}
+  .meta{margin:0;color:var(--soft);font-size:14px;font-family:'IBM Plex Mono',monospace;
+    letter-spacing:.02em;line-height:1.5}
+  .scenes{margin-top:14px}
+  .scene{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--gold);
+    border-radius:8px;padding:13px 16px;margin:10px 0}
+  .scene.climax{border-left-color:var(--green);background:linear-gradient(180deg,var(--green-soft),var(--card) 60%)}
+  .scene.hero{border-left-color:var(--plum);background:linear-gradient(180deg,var(--plum-soft),var(--card) 60%)}
+  .scene-head{display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+  .time{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;color:var(--ink)}
+  .scode{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--soft)}
+  .badge{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;
+    text-transform:uppercase;padding:3px 8px;border-radius:999px;margin-left:auto}
+  .badge-climax{background:var(--green);color:#fff}
+  .badge-hero{background:var(--plum);color:#fff}
+  .row{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:4px 0;
+    border-top:1px solid #f0e9dd}
+  .row:first-child{border-top:none}
+  .lab{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.07em;
+    text-transform:uppercase;color:var(--soft);padding-top:3px}
+  .val{font-size:15.5px;line-height:1.5}
+  .val.vo{font-family:'Fraunces',serif;font-size:17px;font-weight:500;color:var(--ink)}
+  .val.note{font-size:13.5px;color:var(--soft);font-style:italic}
+  .val.insert{color:var(--gold);font-weight:500;font-size:14.5px}
+  .val.ast{color:var(--red);font-weight:700}
+  @media(max-width:560px){
+    .row{grid-template-columns:1fr;gap:2px}
+    .lab{padding-top:6px}
+  }
+  .footer{margin-top:60px;border-top:2px solid var(--ink);padding-top:20px}
+  .footer h3{font-family:'Fraunces',serif;font-size:20px;margin:0 0 8px}
+  .disclaimer{background:#fff6ef;border:1px solid var(--red-soft);border-left:3px solid var(--red);
+    border-radius:8px;padding:14px 16px;font-size:14px;color:#7a4536;line-height:1.5}
+  .verify{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:16px}
+  .vitem{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:11px 13px}
+  .vitem .vh{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+  .vitem p{margin:0;font-size:14px;color:var(--ink);line-height:1.45}
+  .stamp{margin-top:18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Moonbow · Complete Calm Trio · Creative Production Brief</div>
+  <h1>Complete Calm Trio: <em>Animation Script Directions</em></h1>
+  <p class="sub">Five 120-second vertical (9:16) concepts for AI-generated video. Each card is one scene. The line marked VO / SUBTITLE is both spoken aloud and shown on screen, so it reads clearly with sound off.</p>
+
+  <div class="rule"></div>
+  <div class="legend">
+    <div><h4>Scene codes</h4><p>Scenes run 1–17 per script. “Scene 17” = the final scene.</p></div>
+    <div><h4>Product Insert</h4><p>Gold field = real product footage composited into the AI scene here.</p></div>
+    <div><h4><span class="swatch sw-green"></span>Climax</h4><p>Green card = the transformation scene. Give it the most generation time.</p></div>
+    <div><h4><span class="swatch sw-plum"></span>Product Hero</h4><p>Plum card = the hero shot. Cosmetic disclaimer must appear here.</p></div>
+    <div><h4>Asterisk *</h4><p>Any appearance claim marked * carries the cosmetic disclaimer on the end card.</p></div>
+    <div><h4>Claim register</h4><p>US cosmetic rules: describe the <em>look</em> of skin (calmer, more even, radiant). Never treat / cure / reduce inflammation as a condition.</p></div>
+  </div>
+
+  <div class="ingredients">
+    <b>Complete Calm Trio</b> — 3-step system: <b>Reset</b> Soothing Cleanser · <b>Renew</b> Barrier Boosting Serum · <b>Reflect</b> Luminizing Moisturizer. Hero botanical across all scripts: <b>Wild Chrysanthemum</b> (cools heat, soothes the look of redness). Featured trio: Chrysanthemum, Centella, Pearl Powder. Supporting actives by product per Moonbow's ingredient page: Orange Peel / Tremella / Ginseng (Renew), Pearl / Peony / Ginseng (Reflect), Centella / Tea Tree / Green Tea / Licorice / Jujube (Reset).
+  </div>
+
+  <div class="toc"><a href="#c1"><span class="tnum">1</span>Wild Chrysanthemum</a><a href="#c2"><span class="tnum">2</span>The Overwhelmed Bathroom Shelf</a><a href="#c3"><span class="tnum">3</span>The Twins’ Kitchen</a><a href="#c4"><span class="tnum">4</span>The Mirror at 8 AM</a><a href="#c5"><span class="tnum">5</span>The Botanical Origins</a></div>
+
+  <section class="concept" id="c1">
+      <div class="concept-head">
+        <div class="cnum">1</div>
+        <div>
+          <h2>Wild Chrysanthemum</h2>
+          <p class="meta">Reactive-skin women 25–40 · TCM / botanical education · Character: Chrysanthemum, a glowing golden flower-spirit · World: Face-as-landscape, dawn cosmos</p>
+        </div>
+      </div>
+      <div class="scenes"><div class="scene">
+      <div class="scene-head"><span class="time">0:00–0:03</span><span class="scode">Scene 1</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Your skin isn’t sensitive. It’s reacting.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Tight on a cheek-landscape: angry warm-red flush rippling across the surface like heat-haze.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Low skin-prickle hum; faint heartbeat</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Redness = animated warm-red bloom, NOT a rash. Keep it abstract / beautiful, never clinical.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:03–0:08</span><span class="scode">Scene 2</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Meet wild chrysanthemum — the herb TCM reached for to cool heat.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">A small golden flower-spirit drifts down onto the red landscape; petals unfurl, casting cool gold light.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Soft chime; warm pad enters</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Chrysanthemum spirit = consistent across all scenes. Golden, soft, grandmotherly warmth.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:08–0:12</span><span class="scode">Scene 3</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“It’s not your moisturizer’s fault.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">The flush flares again; a generic cold-blue cream jar slides in, sits useless, slides out.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Flat synthetic tone</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Competitor jar is unbranded, cold palette, clashes with warm realm.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:12–0:15</span><span class="scode">Scene 4</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“There’s an older way to calm it.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">1.5s glimpse of the amber serum dropper; snap back to the red landscape.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Warm chime</div></div><div class="row"><div class="lab">Product Insert</div><div class="val insert">Renew serum dropper, amber light bead at the tip</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:15–0:21</span><span class="scode">Scene 5</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Strip it. Acid it. Pile on ten steps. The barrier only reacts harder.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Shelf of fixes: harsh scrub (sandstorm), strong acid (sizzle), 10-step pile (teetering tower). Fast 1.5s cuts.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Three discordant tones, one per fix</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Objects lit as cold museum artifacts. No real brands.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:21–0:25</span><span class="scode">Scene 6</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“The problem isn’t weakness. It’s heat that never settled.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Landscape exhausted, dim red; a warm golden glow grows on the horizon.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Music warms; soft swell</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Transition beat — palette begins to cool the red toward calm gold.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:25–0:32</span><span class="scode">Scene 7</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“For centuries, TCM used chrysanthemum to clear heat and soothe the look of redness.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Golden light expands; botanicals orbit the spirit: chrysanthemum sun, centella leaf-moon, pearl-powder stars.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Singing bowl; warm strings</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Botanicals painterly &amp; luminous, not photographic. &#x27;Look of redness&#x27; — keep cosmetic wording.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:32–0:40</span><span class="scode">Scene 8</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Wild chrysanthemum cools the surface and helps skin look calmer.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Close on the chrysanthemum, pulsing softly; the red landscape beneath it eases toward warm neutral.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Soft cooling shimmer</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Wording mirrors Moonbow&#x27;s own ingredient copy (&#x27;cool redness, restore glow&#x27;).</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:40–0:50</span><span class="scode">Scene 9</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Chrysanthemum, centella, and pearl powder — a calm-skin ritual in three steps.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Three botanicals float forward in turn, each glowing, then resolve into three product silhouettes (cleanse / serum / cream).</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Three warm tones</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Three featured botanicals map to the 3 Trio steps. Establish the 3-step idea here.</div></div></div>
+    </div><div class="scene climax">
+      <div class="scene-head"><span class="time">0:50–1:05</span><span class="scode">Scene 10</span><span class="badge badge-climax">Transformation / Climax</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“No stripping. No forcing. Just skin, finally settling.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">The three botanicals become golden mist settling over the landscape. Over 7s: angry red → warm calm gold; ripples smooth; surface turns soft, even, luminous.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Long exhale; harmonic swell</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">CLIMAX. Generate 20+ takes. Hold the full 15s. The red-to-calm shift is the whole sell.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:05–1:13</span><span class="scode">Scene 11</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Moonbow Complete Calm Trio. Cleanse. Treat. Seal. Every evening.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Real footage: the three products in sequence — Reset, Renew, Reflect — on a warm-lit shelf.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Soft pour / pump / glide</div></div><div class="row"><div class="lab">Product Insert</div><div class="val insert">Trio 3-step real product sequence</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Use Moonbow product footage; grade warm-gold.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:13–1:22</span><span class="scode">Scene 12</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Used nightly, skin looks calmer and more even over time.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Time-lapse; the chrysanthemum spirit rests on the now-calm landscape as the moon arcs overhead.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Slow breathing pulse</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Hedged appearance claim. &#x27;Looks&#x27; — never a treatment claim.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:22–1:30</span><span class="scode">Scene 13</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Wake to skin that looks like it slept.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Sunrise; the landscape glows soft and dewy; the spirit stretches, petals catching light.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Distant birdsong; warm sunrise tone</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Glow payoff. Dewy = light specular highlights, not wetness.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:30–1:35</span><span class="scode">Scene 14</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“TCM botanicals. Dermatologist-tested. Cruelty-free.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Quick layered shots: the three products, chrysanthemum motif, soft &#x27;dermatologist-tested&#x27; text.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Three soft chimes</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">VERIFY: &#x27;dermatologist-tested&#x27; wording on current packaging/site before lock.</div></div></div>
+    </div><div class="scene hero">
+      <div class="scene-head"><span class="time">1:35–1:46</span><span class="scode">Scene 15</span><span class="badge badge-hero">Product Hero</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“3 full-size products. $86 — save 15% as a set. 30-day happiness guarantee.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Clean hero: the Complete Calm Trio boxed set, warm light, single chrysanthemum bloom beside it.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Warm sustained chord</div></div><div class="row"><div class="lab">Product Insert</div><div class="val insert">Trio set hero</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">VERIFY price/guarantee: site shows $86 (from $101) + free shipping $65+. Confirm exact guarantee terms.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:46–1:55</span><span class="scode">Scene 16</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“What is your skin really asking for?”</div></div><div class="row"><div class="lab">Visual</div><div class="val">The chrysanthemum spirit hovers over calm skin; turns toward camera; petals open like an eye.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Quiet held tone</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Open question, drives comments / rewatch.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:55–2:00</span><span class="scode">Scene 17</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Moonbow. Calm is the new glow.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Spirit drifts up and out of frame; logo fades in.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Final chime; fade</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">End card; logo + moonbowskin.com.</div></div></div>
+    </div></div>
+    </section><section class="concept" id="c2">
+      <div class="concept-head">
+        <div class="cnum">2</div>
+        <div>
+          <h2>The Overwhelmed Bathroom Shelf</h2>
+          <p class="meta">Routine-fatigued 25–38 · &#x27;too many products&#x27; relatability · Character: A frazzled creature surrounded by jars · World: A bathroom shelf as overcrowded city</p>
+        </div>
+      </div>
+      <div class="scenes"><div class="scene">
+      <div class="scene-head"><span class="time">0:00–0:03</span><span class="scode">Scene 1</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“You own 14 products. Your skin is still angry.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Small creature buried under a teetering skyline of unbranded jars, bottles, droppers.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Clatter; glass clinking</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Design creature to NOT resemble any existing IP. All jars unbranded.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:03–0:08</span><span class="scode">Scene 2</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“This is your shelf at 11 PM.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Pull back: a whole crowded city of products; the creature alone, overwhelmed, red-faced.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Overlapping ad-jingle fragments</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">The shelf-city is the visual hero — detailed but stylized.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:08–0:12</span><span class="scode">Scene 3</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Every new step promised a fix.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Creature tries one jar → face flares red; another → redder; jars keep multiplying.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Each try = a sharp sting tone</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Redness as warm bloom on the creature, escalating.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:12–0:15</span><span class="scode">Scene 4</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Until it stopped.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Between two jars, a warm gold glow; the creature pauses, peeks toward it.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Chaos fades to one warm tone</div></div><div class="row"><div class="lab">Product Insert</div><div class="val insert">Trio glimpsed glowing between the clutter</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:15–0:22</span><span class="scode">Scene 5</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“More actives don’t calm a reacting barrier. They overload it.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">A 12-step tower assembles fast, sways, and collapses; the creature ducks.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Build-up whir; crash</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Mirrors Moonbow &#x27;reacting, not sensitive&#x27; thesis. No real brands in the tower.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:22–0:28</span><span class="scode">Scene 6</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Calm skin isn’t ten steps. It’s the right three.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">The clutter dims; three warm products rise on a clean ledge, lit gold.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Single warm chord</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">The 3-step idea is the turn. Everything else goes dark.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:28–0:36</span><span class="scode">Scene 7</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Cleanse the heat. Treat the barrier. Seal the glow.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Three icons bloom over the three products: chrysanthemum (cleanse), tremella drop (serum), pearl (cream).</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Three chimes</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Step verbs map to Reset / Renew / Reflect.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:32–0:45</span><span class="scode">Scene 8</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Wild chrysanthemum and centella to soothe. Orange peel to brighten. Pearl to glow.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Creature picks up each product in turn; with each, a patch of its red skin eases to calm gold.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Soft three-part motif</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Ingredient→product mapping verified on site. Keep claims to soothe/brighten/glow (appearance).</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:45–0:55</span><span class="scode">Scene 9</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Three steps. Two minutes. One calmer face.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Creature does the 3 steps in a smooth loop; shoulders drop; red recedes across the whole face.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Calm rhythmic motif</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Establish the ritual as fast and simple — anti-overwhelm.</div></div></div>
+    </div><div class="scene climax">
+      <div class="scene-head"><span class="time">0:55–1:10</span><span class="scode">Scene 10</span><span class="badge badge-climax">Transformation / Climax</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“One by one, the extra jars go quiet.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">The crowded city powers down jar by jar; lights off; red → warm gold; the creature sits, calm, three products left.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Power-down tones into peaceful silence</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">CLIMAX. Reverse the clutter like a calming Rube Goldberg. Most generation time.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:10–1:18</span><span class="scode">Scene 11</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Moonbow Complete Calm Trio. Less shelf. More skin.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Real footage: the three products in a clean row, warm-graded.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Gentle pour; warm sustain</div></div><div class="row"><div class="lab">Product Insert</div><div class="val insert">Trio clean row</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Grade to match the warm ledge.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:18–1:28</span><span class="scode">Scene 12</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Used nightly, skin looks calmer and more even over time.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Shelf nearly empty and serene; one warm glow; time-lapse moon through a window.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Slow breath pulse</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Hedged appearance claim, matches site.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:28–1:36</span><span class="scode">Scene 13</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“You wake with room — and a calmer face.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Morning; the shelf is minimal, airy; creature wakes, touches calm cheek, smiles.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Soft morning ambience</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Payoff of the &#x27;room / less&#x27; metaphor.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:36–1:42</span><span class="scode">Scene 14</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“TCM botanicals. Dermatologist-tested. Cruelty-free.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Quick shots: three products, chrysanthemum motif, soft claim text across the clean shelf.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Three warm chimes</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">VERIFY claim wording on packaging.</div></div></div>
+    </div><div class="scene hero">
+      <div class="scene-head"><span class="time">1:42–1:50</span><span class="scode">Scene 15</span><span class="badge badge-hero">Product Hero</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“3 full-size products. $86 — save 15% as a set.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Hero: Trio set beside the now-empty clutter spot, warm lamp light.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Warm chord</div></div><div class="row"><div class="lab">Product Insert</div><div class="val insert">Trio set hero</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">VERIFY price/offer on site.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:50–1:56</span><span class="scode">Scene 16</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“How many jars are you actually using?”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Creature calm, holding the three, looks to camera.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Quiet held tone</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Open question, engagement driver.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:56–2:00</span><span class="scode">Scene 17</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Moonbow. Calm is the new glow.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Creature exhales; the last extra jar fades. Logo fades in.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Final chime; fade</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">End card.</div></div></div>
+    </div></div>
+    </section><section class="concept" id="c3">
+      <div class="concept-head">
+        <div class="cnum">3</div>
+        <div>
+          <h2>The Twins’ Kitchen</h2>
+          <p class="meta">Diaspora 28–50 + heritage-wellness · founder story · Characters: Twin sisters — Heather &amp; Dr. Felice · World: Hong Kong kitchen ↔ modern bathroom</p>
+        </div>
+      </div>
+      <div class="scenes"><div class="scene">
+      <div class="scene-head"><span class="time">0:00–0:03</span><span class="scode">Scene 1</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“We’re twins. Same face. Two very different lives.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Two stylized sisters back-to-back; one in a sharp office silhouette, one in soft herbal-kitchen light.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Gentle dual motif</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Two consistent characters — lock both faces first. Identical but styled differently.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:03–0:08</span><span class="scode">Scene 2</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“One of us chased the fast life. Our skin paid for it.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Heather in a high-stress cityscape; her cheeks flush warm-red under cold office light.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Tense city hum</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Founders, per site: Heather (private equity), Felice (TCM doctor), Hong Kong. Warm, not caricatured.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:08–0:13</span><span class="scode">Scene 3</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“The other went back to what our culture always knew.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Felice in a warm kitchen, herbs hanging; she brews chrysanthemum tea, steam rising gold.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Warm strings enter</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Kitchen = heritage warmth, NOT costume cliche.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:13–0:18</span><span class="scode">Scene 4</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Warming foods. Slow rituals. Skin that finally calmed.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Felice presses a warm cloth to her cheek; the red eases to calm gold.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Slowing heartbeat</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Calm-down beat. Cosmetic appearance language only.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:18–0:25</span><span class="scode">Scene 5</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“We tried every modern fix. Nothing settled the reacting.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Bathroom counter in cold blue: unbranded acids, scrubs, ten-step lineup. Heather&#x27;s face still red.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Cold electronic tones, then silence</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Cold palette contrast. No real brands.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:25–0:32</span><span class="scode">Scene 6</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“So we built the routine we wished we’d had.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">The sisters meet at a shared table; Felice slides three warm-gold products toward Heather.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Single piano note; warming</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Emotional pivot — the brand is born between them.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:32–0:40</span><span class="scode">Scene 7</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Wild chrysanthemum. Centella. Pearl. The herbs we grew up with — now in three steps.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Warm glow rises; three botanicals drift in and resolve into the three Trio products.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Strings swell</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Heritage → product. Three botanicals = three steps.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:40–0:50</span><span class="scode">Scene 8</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Moonbow. Built by twins, rooted in TCM — for skin that reacts to everything.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Real footage: the Trio appears on the shared table; Heather picks up the cleanser.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Soft chime; warm tone</div></div><div class="row"><div class="lab">Product Insert</div><div class="val insert">Trio reveal on the table</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Founder line ties to brand origin on site.</div></div></div>
+    </div><div class="scene climax">
+      <div class="scene-head"><span class="time">0:50–1:05</span><span class="scode">Scene 9</span><span class="badge badge-climax">Transformation / Climax</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Same heat, cooled. Same skin, calmed. Same wisdom — in a bottle.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Heather does the 3 steps; as steam rises, the modern bathroom and Felice&#x27;s kitchen briefly overlap; her red cheeks settle to calm gold.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Long exhale; layered ambience; swell</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">CLIMAX. Use steam as the bridge between the two worlds — subtle morph, NOT a hard cut.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:05–1:13</span><span class="scode">Scene 10</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“My skin remembered calm before I did.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Heather looks in the mirror; the flush is gone; she touches her cheek like in childhood.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Gentle music</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Mirror the early calm-down beat.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:13–1:22</span><span class="scode">Scene 11</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Moonbow Complete Calm Trio. The wisdom that raised us, in three steps.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Real footage: Trio sequence, warm-graded; brief cross-cut to Felice&#x27;s kitchen herbs.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Warm pad</div></div><div class="row"><div class="lab">Product Insert</div><div class="val insert">Trio 3-step sequence</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Cross-cut to herbs for continuity.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:22–1:30</span><span class="scode">Scene 12</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Used nightly, skin looks calmer and more even over time.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Time-lapse: the two worlds settle into one calm bathroom; moonlight to dawn.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Slow breathing pulse</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Hedged appearance claim.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:30–1:37</span><span class="scode">Scene 13</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Wake to skin that looks like it slept.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Morning; Heather wakes, calm clear skin, glances at a photo of the two of them, smiles.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Morning birds</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Glow payoff.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:37–1:44</span><span class="scode">Scene 14</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“TCM botanicals. Dermatologist-tested. Cruelty-free.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Quick shots: Trio, chrysanthemum motif, the twins’ names on the box.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Three chimes</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">VERIFY: founder names / signature on packaging.</div></div></div>
+    </div><div class="scene hero">
+      <div class="scene-head"><span class="time">1:44–1:52</span><span class="scode">Scene 15</span><span class="badge badge-hero">Product Hero</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“3 full-size products. $86 — save 15% as a set.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Hero: Trio set beside the framed twin photo, morning light.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Warm chord</div></div><div class="row"><div class="lab">Product Insert</div><div class="val insert">Trio set hero</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">VERIFY price/offer.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:52–1:57</span><span class="scode">Scene 16</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“What did your culture always know?”</div></div><div class="row"><div class="lab">Visual</div><div class="val">The sisters face camera together, calm skin, holding the Trio.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Held tone</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Open question.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:57–2:00</span><span class="scode">Scene 17</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Moonbow. Calm is the new glow.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Both smile; logo fades in.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Final warm chime; fade</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">End card.</div></div></div>
+    </div></div>
+    </section><section class="concept" id="c4">
+      <div class="concept-head">
+        <div class="cnum">4</div>
+        <div>
+          <h2>The Mirror at 8 AM</h2>
+          <p class="meta">Reactive-skin skeptics 28–45 · hyper-real emotional truth · Character: Pixar-style woman (test male variant) · World: A real bathroom mirror, morning</p>
+        </div>
+      </div>
+      <div class="scenes"><div class="scene">
+      <div class="scene-head"><span class="time">0:00–0:03</span><span class="scode">Scene 1</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“8:14 AM. You’re already covering it up.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Extreme close-up: a hand dabbing concealer over a warm-red flush on the cheek.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Soft tap; low room tone</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">HARDEST consistency challenge: one realistic human across 17 scenes. Consider real-actress footage + AI style-transfer as fallback.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:03–0:08</span><span class="scode">Scene 2</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“It looked fine yesterday. Today it’s reacting again.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Pull back: woman ~34 at the mirror, leaning in, frustrated; cool bathroom light.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Piano note; faint sigh</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Lock the face with a reference sheet / LoRA. Redness as warm bloom, beautiful not clinical.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:08–0:13</span><span class="scode">Scene 3</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“You’ve tried everything.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Her hand opens a drawer crowded with unbranded acids, scrubs, creams.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Anxious pulse</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Pixar &#x27;Soul&#x27; everyday-reality look. No real brands.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:13–0:18</span><span class="scode">Scene 4</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Something gentler exists.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">The amber Trio glimpsed on a warm-lit counter; snap back to the cold mirror.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Warm tone briefly, then silence</div></div><div class="row"><div class="lab">Product Insert</div><div class="val insert">Trio on counter, warm light</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:18–0:25</span><span class="scode">Scene 5</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Retinol. Acids. Scrubs. The 10-step. None of it settled the redness.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">She lines the products on the sink; each adds a cold tone; the flush stays.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Cold layered tones</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Appearance language: &#x27;settled the redness&#x27; = look, not condition.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:25–0:32</span><span class="scode">Scene 6</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Your skin isn’t sensitive. It’s reacting. And most fixes push harder.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">She closes the drawer; looks at her flushed reflection; quiet.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Quiet exhale; silence</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">This is Moonbow’s core line — deliver it straight to the mirror.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:32–0:40</span><span class="scode">Scene 7</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“TCM had a gentler answer first.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">She opens a cabinet; the Moonbow Trio catches warm light.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Low cello note</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Warm-light find, hope beat.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:40–0:50</span><span class="scode">Scene 8</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Chrysanthemum to cool. Centella to soothe. Pearl to glow. Three steps.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">She does the 3 steps slowly: cleanse, serum, cream. Close on her tired-but-curious face.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Soft water; pump; glide</div></div><div class="row"><div class="lab">Product Insert</div><div class="val insert">(optional) real 3-step insert</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Featured botanicals → the 3 Trio steps.</div></div></div>
+    </div><div class="scene climax">
+      <div class="scene-head"><span class="time">0:50–1:05</span><span class="scode">Scene 9</span><span class="badge badge-climax">Transformation / Climax</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“No stripping. No stinging. Just skin, finally calming.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Mirror unchanged — SHE changes: the flush eases, jaw unclenches, she stops hiding the cheek. Hold on her face.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Long exhale; warm swell</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">CLIMAX. Acted on the FACE across beats: tense→curious→softening→calm. Hardest AI shot.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:05–1:13</span><span class="scode">Scene 10</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“The redness quiets. The glow comes back.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">She lowers her hand from her face; leans toward the mirror; small surprised smile.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Slow pulse; soft music</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Appearance payoff.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:13–1:22</span><span class="scode">Scene 11</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Moonbow Complete Calm Trio. Cleanse. Treat. Seal.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Real footage: Trio 3-step sequence, warm-matched.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Warm tone; soft pumps</div></div><div class="row"><div class="lab">Product Insert</div><div class="val insert">Trio 3-step sequence</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Grade to counter warmth.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:22–1:30</span><span class="scode">Scene 12</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Used nightly, skin looks calmer and more even over time.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Time-lapse: several mornings; less concealer each day; face calmer.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Slow breathing pulse</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Hedged appearance claim.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:30–1:37</span><span class="scode">Scene 13</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Wake to skin you don’t want to cover.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Morning sun; she wakes, goes to the mirror, skips the concealer, smiles.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Birdsong; morning tone</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">The concealer-skip is the emotional payoff. Callback to Scene 1.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:37–1:43</span><span class="scode">Scene 14</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“TCM botanicals. Dermatologist-tested. Cruelty-free.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Quick shots: Trio, chrysanthemum motif, claim text.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Three chimes</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">VERIFY claim wording.</div></div></div>
+    </div><div class="scene hero">
+      <div class="scene-head"><span class="time">1:43–1:52</span><span class="scode">Scene 15</span><span class="badge badge-hero">Product Hero</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“3 full-size products. $86 — save 15% as a set.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Hero: Trio set on the bathroom shelf, morning light, single bloom.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Warm chord</div></div><div class="row"><div class="lab">Product Insert</div><div class="val insert">Trio set hero</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">VERIFY price/offer.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:52–1:57</span><span class="scode">Scene 16</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“What would bare skin feel like?”</div></div><div class="row"><div class="lab">Visual</div><div class="val">She stands at the window, no makeup, calm, morning coffee.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Held tone</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Open question.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:57–2:00</span><span class="scode">Scene 17</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Moonbow. Calm is the new glow.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Half-smile to camera. Logo fades in.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Final chime; fade</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">End card.</div></div></div>
+    </div></div>
+    </section><section class="concept" id="c5">
+      <div class="concept-head">
+        <div class="cnum">5</div>
+        <div>
+          <h2>The Botanical Origins</h2>
+          <p class="meta">Ingredient-curious label-readers · botanicals as characters · Characters: Jú Huā (Chrysanthemum), Jiǎ Lǐ (Centella), Pearl + human · World: Celestial herb-garden ↔ bathroom</p>
+        </div>
+      </div>
+      <div class="scenes"><div class="scene">
+      <div class="scene-head"><span class="time">0:00–0:03</span><span class="scode">Scene 1</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Three botanicals that actually calm reactive skin.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Three glowing silhouettes appear in a dawn sky, one by one.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Three rising chimes</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Each character must also work as a 30s cutdown. &#x27;Calm the look of&#x27; — keep cosmetic framing in supers.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:03–0:08</span><span class="scode">Scene 2</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“A calm-skin ritual, rooted in centuries of TCM.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Pull back: celestial herb garden; plants as constellations. Below, through a veil, a woman with a flushed face at a mirror.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Warm strings; wind</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Three = the 3 featured botanicals mapping to the 3 Trio steps.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:08–0:15</span><span class="scode">Scene 3</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Jú Huā — wild chrysanthemum. Cools heat and soothes the look of redness.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Jú Huā: a golden sun-flower spirit with kind eyes, releases cooling gold pollen.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Low cello; soft shimmer</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Design distinct &amp; consistent; reference sheet first. Maps to Reset / cleanse.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:15–0:22</span><span class="scode">Scene 4</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Used for centuries in TCM to clear heat and calm irritated-looking skin.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">A red, flickering flush on a stylized cheek; Jú Huā’s pollen settles it to calm gold.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Warmth settling tone</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Hedged traditional-use claim. Appearance only.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:22–0:29</span><span class="scode">Scene 5</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Centella — supports the barrier and helps skin look replenished.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Centella: a green leaf-guardian over still water; releases a ripple of restorative light.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Singing bowl; ripple</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Centella per site → Reset/serum support. &#x27;Supports the barrier&#x27; is a permitted cosmetic claim.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:29–0:36</span><span class="scode">Scene 6</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Traditionally used to support skin’s renewal and resilience.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Inside a stylized barrier wall: cracked bricks knit back together under green light.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Soft rebuild tone</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Hedged traditional-use claim. &#x27;Barrier&#x27; = structure/appearance, safe.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:36–0:43</span><span class="scode">Scene 7</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Pearl powder — the finishing glow.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Pearl: an iridescent moon-being; touches the surface; it turns soft, smooth, luminous.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Crystalline chime</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Pearl per site → Reflect / moisturizer. Maps to the &#x27;seal&#x27; step.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:43–0:50</span><span class="scode">Scene 8</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“It smooths the look of texture and leaves skin radiant.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">A dull surface catches light and begins to glow with soft specular highlights.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Shimmer to stillness</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Moonbow&#x27;s pearl copy: brighten / smooth texture / radiance.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">0:50–0:58</span><span class="scode">Scene 9</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Together — three steps that remind reactive skin how to calm.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">The three spirits meet at the garden’s center; lights merge into one warm sphere.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Three tones harmonize</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Three botanicals = Reset → Renew → Reflect. Establish the 3-step payoff.</div></div></div>
+    </div><div class="scene climax">
+      <div class="scene-head"><span class="time">0:58–1:10</span><span class="scode">Scene 10</span><span class="badge badge-climax">Transformation / Climax</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Moonbow Complete Calm Trio. Three botanicals, one calm-skin ritual.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">The sphere descends through the veil into the woman’s three products. Real 3-step footage with glow composited in. She finishes; her flush settles to calm gold.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Warm exhale; swell</div></div><div class="row"><div class="lab">Product Insert</div><div class="val insert">Trio 3-step pour/pump/glide, glow composited</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">CLIMAX + product moment. Composite real footage + AI glow.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:10–1:18</span><span class="scode">Scene 11</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“No stripping. No forcing. Just skin, remembering calm.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">She looks calm in the mirror; the three spirits drift gently above her.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Slow breathing pulse</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Spirits as guardians.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:18–1:27</span><span class="scode">Scene 12</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Used nightly, skin looks calmer and more even over time.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Time-lapse; the spirits dim back into the dawn sky as constellations.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Slow pulse</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Hedged appearance claim.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:27–1:35</span><span class="scode">Scene 13</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Wake to skin that looks like it slept.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Morning; she wakes calm and clear, stretches; the Trio on the shelf.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Birdsong</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Glow payoff.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:35–1:43</span><span class="scode">Scene 14</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Chrysanthemum. Centella. Pearl. Clean of what you don’t want.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Jú Huā, Centella, Pearl appear once more as icons over the Trio; box visible.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Three chimes to one tone</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">VERIFY &#x27;clean / free-from&#x27; wording against current product pages before using.</div></div></div>
+    </div><div class="scene hero">
+      <div class="scene-head"><span class="time">1:43–1:52</span><span class="scode">Scene 15</span><span class="badge badge-hero">Product Hero</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“3 full-size products. $86 — save 15% as a set.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Hero: Trio set, soft light, three glows above it.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Warm chord</div></div><div class="row"><div class="lab">Product Insert</div><div class="val insert">Trio set hero</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">VERIFY price/offer.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:52–1:57</span><span class="scode">Scene 16</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Now you know what’s calming your skin.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Woman at the window; the three fade into the sky behind her.</div></div><div class="row"><div class="lab">SFX</div><div class="val">Held tone</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">Open-ish close.</div></div></div>
+    </div><div class="scene">
+      <div class="scene-head"><span class="time">1:57–2:00</span><span class="scode">Scene 17</span></div>
+      <div class="scene-body"><div class="row"><div class="lab">VO / SUBTITLE</div><div class="val vo">“Moonbow. Three botanicals. Centuries of TCM. One calm face.”</div></div><div class="row"><div class="lab">Visual</div><div class="val">Pull back to sky; three faint constellations. Logo fades in.</div></div><div class="row"><div class="lab">On-Screen Text</div><div class="val ast">*</div></div><div class="row"><div class="lab">SFX</div><div class="val">Final chime; fade</div></div><div class="row"><div class="lab">AI / Notes</div><div class="val note">End card.</div></div></div>
+    </div></div>
+    </section>
+
+  <div class="footer">
+    <h3>Disclaimer (required on every product-hero end card)</h3>
+    <div class="disclaimer">Cosmetic product. Statements describe the appearance of skin and results may vary. Not intended to diagnose, treat, cure, or prevent any disease or skin condition. Photos may be retouched / dramatized.<br><br><b>US-only campaign.</b> If the video is ever distributed in Indonesia or elsewhere, replace with the local cosmetic-claim wording (BPOM in Indonesia) and re-clear the claims — do not reuse this US text.</div>
+
+    <div class="verify">
+      <div class="vitem"><div class="vh">Verify on packaging</div><p>“Dermatologist-tested” and “cruelty-free” wording — confirm exact phrasing on current product / site before lock.</p></div>
+      <div class="vitem"><div class="vh">Verify pricing</div><p>Trio shown at $86 (from $101); free shipping $65+. Confirm current price, the 15% / 20% bundle figure, and exact guarantee terms.</p></div>
+      <div class="vitem"><div class="vh">Verify claim register</div><p>Every VO line uses appearance language. Have FTC/FDA-aware reviewer confirm no line implies treating a condition (rosacea, eczema, acne) as a drug.</p></div>
+      <div class="vitem"><div class="vh">Verify “clean / free-from”</div><p>Script 5 Scene 14 “clean of what you don’t want” — confirm against actual formulation / current marketing claims.</p></div>
+      <div class="vitem"><div class="vh">Verify founders on pack</div><p>Script 3 references the twin founders (Heather & Dr. Felice) — confirm names / likeness use is approved for paid video.</p></div>
+      <div class="vitem"><div class="vh">Open item</div><p>Authorization to run Moonbow-branded paid content and rights to any “as seen on TikTok” / press mentions.</p></div>
+    </div>
+    <p class="stamp">Format adapted from the NOOCI Relax + Sleep animation brief. Product facts pulled from moonbowskin.com on 28 May 2026. The website is marketing copy; the physical product label / formulation is the final authority before lock.</p>
+  </div>
+</div>
+</body>
+</html>
